@@ -1,26 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Toolbar from './components/Toolbar';
+import Members from './components/Members';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+export const MyContext = React.createContext();
+export class MyProvider extends React.Component {
+  state = {
+    members: ['Hulk', 'Thor', 'Loki', 'Ultron']
+  }
+
+  render() {
+    return (
+      <MyContext.Provider value={{...this.state}}>
+        { this.props.children }
+      </MyContext.Provider>
+    )
+  }
+} 
+
+export class App extends React.Component {
+  render(){
+    return (
+      <MyProvider>
+        <React.Fragment>
+          {/* <Toolbar /> */}
+          <Members />
+        </React.Fragment>
+      </MyProvider>
+    )
+  } 
 }
-
-export default App;
