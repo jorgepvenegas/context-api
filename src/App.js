@@ -7,7 +7,21 @@ import Members from './components/Members';
 export const MyContext = React.createContext();
 export class MyProvider extends React.Component {
   state = {
-    members: ['Hulk', 'Thor', 'Loki', 'Ultron']
+    newMember: '',
+    members: ['Hulk', 'Thor', 'Loki', 'Ultron'],
+    updateNewMember: newMember => {
+      this.setState({
+        newMember
+      })
+    },
+    saveMember: () => {
+      let { newMember, members } = this.state;
+      members.push(newMember);
+      this.setState({
+        members,
+        newMember: ''
+      })
+    }
   }
 
   render() {
@@ -24,7 +38,7 @@ export class App extends React.Component {
     return (
       <MyProvider>
         <React.Fragment>
-          {/* <Toolbar /> */}
+          <Toolbar />
           <Members />
         </React.Fragment>
       </MyProvider>
